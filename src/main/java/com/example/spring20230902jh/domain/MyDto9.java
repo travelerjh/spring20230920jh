@@ -14,4 +14,6 @@ public class MyDto9 {
     private  String lastname;
     private  String classname;
     private  String  phonenumber;
+    private  String  phonenumbers;
+
 }
