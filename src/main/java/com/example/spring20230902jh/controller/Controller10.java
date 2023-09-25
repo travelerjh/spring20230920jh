@@ -69,16 +69,45 @@ public void  m4(Model model){
         model.addAttribute("foodlist",List.of("c","a","k","e"));
         model.addAttribute("names",List.of("흥민","메시","날두","지뉴"));
     }
-
+/*
     @RequestMapping("sub6")
 public void m6(Model model){
         List<MyDto9>list = new ArrayList<>();
         list.add(new MyDto9("s","son","hm","fot","010"));
         list.add(new MyDto9("k","kim","gm","fot","011"));
         list.add(new MyDto9("l","lee","ps","fot","012"));
-
-
         model.addAttribute("so",list);
+    }*/
+
+
+    @RequestMapping("sub7")
+    public  void  m7(Model model){
+        model.addAttribute("a",10);
+        model.addAttribute("b",5);
     }
+
+
+    @RequestMapping("sub8")
+    public void  m8(Model model){
+        model.addAttribute("a", 3) ;
+        model.addAttribute("b", 5) ;
+        model.addAttribute("c", 3) ;
+    }
+
+    @RequestMapping("sub9")
+    public void  m9(Model model){
+        model.addAttribute("a","java");
+        model.addAttribute("b","");
+        model.addAttribute("c",List.of());
+        model.addAttribute("d",List.of(3,4));
+        model.addAttribute("e",Map.of());
+        model.addAttribute("f",Map.of(3,3));
+        model.addAttribute("g",null);
+
+
+
+    }
+
+
 
 }
