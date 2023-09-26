@@ -81,7 +81,7 @@ public void  m3(Model model){
         o1.setBirthDate("2020-01-01");
         model.addAttribute("person1",o1);
     }
-
+/*
     @RequestMapping("sub8")
     public  void  m8(Model model){
         MyDto9  m9 = new MyDto9();
@@ -93,7 +93,7 @@ public void  m3(Model model){
         model.addAttribute("student",m9);
     }
 
-
+*/
 
 
 }

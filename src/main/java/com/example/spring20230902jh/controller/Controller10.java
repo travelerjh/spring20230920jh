@@ -14,6 +14,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("main10")
 public class Controller10 {
+    /*
     @RequestMapping("sub1")
     public  void  m1(Model model){
         MyDto9 m1 = new MyDto9();
@@ -45,6 +46,8 @@ public class Controller10 {
 
         model.addAttribute("people",Map.of("1st",m1,"2nd",m2 ));
     }
+
+     */
 
     @RequestMapping("sub3")
     public  void  m3(Model model){
@@ -111,3 +114,4 @@ public void m6(Model model){
 
 
 }
+    
