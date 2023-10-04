@@ -57,6 +57,8 @@ from  categories where  CategoryID=2;
 
 
 
+select *
+from suppliers;
 
 
 
@@ -64,8 +66,30 @@ from  categories where  CategoryID=2;
 
 
 
-SELECT ProductID, ProductName, Unit, Price
-FROM products
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

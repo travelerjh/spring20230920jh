@@ -2,6 +2,7 @@ package com.example.spring20230902jh.controller;
 
 import com.example.spring20230902jh.domain.MyDto15;
 import com.example.spring20230902jh.domain.MyDto16;
+import com.example.spring20230902jh.domain.MyDto77;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -245,6 +246,65 @@ model.addAttribute("shipper",list);
     }
 
 
+    // 이것만 할줄 안면됨
+    //sub 88 //sub99
+
+
+
+@GetMapping("sub88")
+    public  void  m88(Model model) throws  Exception{
+        String sql= """
+                select SupplierName , SupplierID , Address ,City from suppliers;
+                """;
+    Connection connection = dataSource.getConnection();
+    Statement statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery(sql);
+
+    List<Map<String ,String>> list = new ArrayList<>();
+
+    try(connection; statement; resultSet) {
+        while (resultSet.next()){
+            Map<String ,String> map =new HashMap<>();
+            map.put("name",resultSet.getString(1));
+            map.put("id",resultSet.getString(2));
+            map.put("address",resultSet.getString(3));
+            map.put("city",resultSet.getString(4));
+
+            list.add(map);
+        }
+    }
+    model.addAttribute("list",list);
+}
+
+
+
+@GetMapping("sub99")
+    public  void  m99(Model model) throws  Exception{
+        String sql = """
+                      select SupplierName , SupplierID , Address ,City from suppliers;
+                    """;
+    Connection connection = dataSource.getConnection();
+    Statement statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery(sql);
+
+    List<MyDto77> list= new ArrayList<>();
+
+    try (connection;statement; resultSet){
+        while(resultSet.next()){
+            MyDto77 myDto = new MyDto77();
+
+            myDto.setName(resultSet.getString(1));
+            myDto.setId(resultSet.getString(2));
+            myDto.setAddress(resultSet.getString(3));
+            myDto.setCity(resultSet.getString(4));
+
+            list.add(myDto);
+
+        }
+    }
+    model.addAttribute("mo",list);
+
+}
 
 
 
@@ -258,11 +318,7 @@ model.addAttribute("shipper",list);
 
 
 
-
-
-
-
-
+// DB에 값을 가져오는 방법은  MAP 에 넣는 방법과  javaBeam(DTO) 에 넣는 방법이 있따 .
 
 
 }
