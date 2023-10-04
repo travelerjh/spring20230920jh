@@ -18,11 +18,19 @@
                     <th>SupplierID </th>
                     <th>Address </th>
                     <th> City</th>
+                    <th>PostalCode</th>
+                    <th>Country</th>
+                    <th>Phone</th>
                 </tr>
             <c:forEach var="list"   items="${list}">
                 <tr>
                     <td>${list.name}</td>
                     <td>${list.id}</td>
+                    <td>${list.address}</td>
+                    <td>${list.city}</td>
+                    <td>${list.postalcode}</td>
+                    <td>${list.country}</td>
+                    <td>${list.phone}</td>
 
                 </tr>
             </c:forEach>

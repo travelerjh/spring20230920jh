@@ -254,7 +254,7 @@ model.addAttribute("shipper",list);
 @GetMapping("sub88")
     public  void  m88(Model model) throws  Exception{
         String sql= """
-                select SupplierName , SupplierID , Address ,City from suppliers;
+                select SupplierName , SupplierID , Address ,City , PostalCode, Country,Phone from suppliers;
                 """;
     Connection connection = dataSource.getConnection();
     Statement statement = connection.createStatement();
@@ -269,6 +269,9 @@ model.addAttribute("shipper",list);
             map.put("id",resultSet.getString(2));
             map.put("address",resultSet.getString(3));
             map.put("city",resultSet.getString(4));
+            map.put("postalcode",resultSet.getString(5));
+            map.put("country",resultSet.getString(6));
+            map.put("phone",resultSet.getString(7));
 
             list.add(map);
         }
