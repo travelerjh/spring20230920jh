@@ -61,10 +61,10 @@ select *
 from suppliers;
 
 
+select   * from customers
 
-
-
-
+SELECT *
+FROM w3schools.products
 
 
 

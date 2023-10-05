@@ -35,12 +35,12 @@
         <th>address</th>
         <th>country</th>
     </tr>
-    <c:forEach items="${customerList}" var="customer">
+    <c:forEach items="${list}" var="list">
         <tr>
-            <td>${customer.id}</td>
-            <td>${customer.name}</td>
-            <td>${customer.address}</td>
-            <td>${customer.country}</td>
+            <td>${list.id}</td>
+            <td>${list.name}</td>
+            <td>${list.address}</td>
+            <td>${list.country}</td>
         </tr>
     </c:forEach>
 </table>

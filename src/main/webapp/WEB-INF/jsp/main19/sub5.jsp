@@ -23,10 +23,10 @@
             </tr>
         <c:forEach items="${list}" var="list">
             <tr>
-               <td>${list.ProductID}</td>
-               <td>${list.ProductName}</td>
-               <td>${list.Unit}</td>
-               <td>${list.Price}</td>
+               <td>${list.id}</td>
+               <td>${list.name}</td>
+               <td>${list.unit}</td>
+               <td>${list.price}</td>
             </tr>
         </c:forEach>
 

@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Member;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +20,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("main19")
-public class Controllr19 {
+public class Controller19 {
 /*
     String url="jdbc:mariadb://localhost:3306/w3schools";
     String username="root";
@@ -169,10 +167,10 @@ model.addAttribute("shipper",list);
         // 코드 작성
       while (resultSet.next()){
           Map<String,Object> map= new HashMap<>();
-        map.put("ProductID",resultSet.getString(1));
-        map.put("ProductName",resultSet.getString(2));
-        map.put("Unit",resultSet.getString(3));
-        map.put("Price",resultSet.getString(4));
+        map.put("id",resultSet.getString(1));
+        map.put("name",resultSet.getString(2));
+        map.put("unit",resultSet.getString(3));
+        map.put("price",resultSet.getString(4));
 
         list.add(map);
 
@@ -191,7 +189,7 @@ model.addAttribute("shipper",list);
     @GetMapping("sub6")
     public  void  m6(Model model) throws  Exception{
         String sql= """
-                SELECT Address,CustomerID,Country,CustomerName  FROM  customers
+                SELECT CustomerID  ,ContactName,Address,Country  FROM  customers
                 """;
 
         Connection connection = dataSource.getConnection();
@@ -204,14 +202,14 @@ model.addAttribute("shipper",list);
 
             while (resultSet.next()){
                 MyDto15 dto =new MyDto15();
-                dto.setId(resultSet.getInt(1));
+                dto.setId(resultSet.getString(1));
                 dto.setName(resultSet.getString(2));
                 dto.setAddress(resultSet.getString(3));
                 dto.setCountry(resultSet.getString(4));
                 list.add(dto);
             }
         }
-        model.addAttribute("customerList",list);
+        model.addAttribute("list",list);
     }
 
 
@@ -244,6 +242,130 @@ model.addAttribute("shipper",list);
 
         model.addAttribute("list",list);
     }
+
+    @GetMapping("sub8")
+    public  void  m8(){
+        //jsp 로 foward 만함
+    }
+
+
+    @GetMapping("sub9")
+    public  String  m9(Integer id,Model model) throws  Exception{
+        String sql = """
+                select productid, productname, unit, price from products 
+                where ProductID=
+                """;
+        sql+=id;
+
+        Connection connection = dataSource.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        List<MyDto16> list =new ArrayList<>();
+        try(connection;statement;resultSet) {
+            while(resultSet.next()){
+            MyDto16 myDto16 = new MyDto16();
+            myDto16.setId(resultSet.getString(1));
+            myDto16.setName(resultSet.getString(2));
+            myDto16.setUnit(resultSet.getString(3));
+            myDto16.setPrice(resultSet.getString(4));
+
+            list.add(myDto16);
+            }
+        }
+
+
+
+        model.addAttribute("list", list);
+
+            return "/main19/sub5";
+    }
+
+
+
+    @GetMapping("sub10")
+    public void method10() {
+
+    }
+
+    @GetMapping("sub11")
+    public String method11(Model model,Integer id)throws  Exception{
+        // 쿼리 작성 (method6 참고)
+        String sql = """
+        select  CustomerID  ,ContactName,Address,Country 
+        from customers
+        where CustomerID = """;
+                sql+=id;
+
+        System.out.println("sql = " + sql);
+        // 쿼리 실행
+        Connection connection = dataSource.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        List<MyDto15> list = new ArrayList<>();
+
+        try (connection;  resultSet;statement){
+            while (resultSet.next()){
+                MyDto15 myDto15 = new MyDto15();
+                myDto15.setId(resultSet.getString(1));
+                myDto15.setName(resultSet.getString(2));
+                myDto15.setAddress(resultSet.getString(3));
+                myDto15.setCountry(resultSet.getString(4));
+                System.out.println("myDto15 = " + myDto15);
+                list.add(myDto15);
+            }
+        }
+
+        model.addAttribute("list",list );
+        return "/main19/sub6";
+    }
+
+
+
+
+@GetMapping("sub12")
+    public String m12(Model model ,String city) throws  Exception{
+    String sql = """
+        select  CustomerID  ,ContactName,Address,Country 
+        from customers
+WHERE Country = '""" + city + "'";
+
+    Connection connection = dataSource.getConnection();
+    Statement statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery(sql);
+
+    List<MyDto15> list = new ArrayList<>();
+
+    try (connection;  resultSet;statement){
+        while (resultSet.next()){
+            MyDto15 myDto15 = new MyDto15();
+            myDto15.setId(resultSet.getString(1));
+            myDto15.setName(resultSet.getString(2));
+            myDto15.setAddress(resultSet.getString(3));
+            myDto15.setCountry(resultSet.getString(4));
+            System.out.println("myDto15 = " + myDto15);
+            list.add(myDto15);
+        }
+    }
+    model.addAttribute("list",list);
+
+        return "/main19/sub6";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // 이것만 할줄 안면됨
