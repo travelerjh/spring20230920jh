@@ -19,3 +19,5 @@ select *
 from customers
 where  City in('london','madrid','sevilla');
 
+SELECT *
+FROM customers

@@ -3,6 +3,7 @@ package com.example.spring20230902jh.controller;
 import com.example.spring20230902jh.domain.MyDto15;
 import com.example.spring20230902jh.domain.MyDto16;
 import com.example.spring20230902jh.domain.MyDto77;
+import com.example.spring20230902jh.domain.MyDto99;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -102,7 +103,6 @@ private DataSource  dataSource;
 
     @GetMapping("sub3")
     public  void  m3(Model model)throws Exception {
-        List<Map<String,String>>list = new ArrayList<>();
 
 
         String sql= """
@@ -112,6 +112,7 @@ private DataSource  dataSource;
         Connection connection =dataSource.getConnection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
+        List<Map<String,String>>list = new ArrayList<>();
 
 
 try (connection;statement;resultSet){
@@ -400,6 +401,109 @@ WHERE Country = '""" + city + "'";
     }
     model.addAttribute("list",list);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@GetMapping("sub90")
+public void m90(){
+        //그냥 넘기는 기능
+}
+@GetMapping("sub91")
+public void m91(String id, Model model) throws Exception{
+        String sql = """
+                select CustomerID, CustomerName,Address,City,Country from customers
+                where CustomerID=
+                """;
+            sql+=id;
+
+    Connection connection = dataSource.getConnection();
+    Statement statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery(sql);
+    List<Map<String,String>> list = new ArrayList<>();
+
+    try (connection;statement;resultSet) {
+        while (resultSet.next()){
+        Map<String ,String>map =new HashMap<>();
+        map.put("id",resultSet.getString(1));
+        map.put("name",resultSet.getString(2));
+        map.put("address",resultSet.getString(3));
+        map.put("city",resultSet.getString(4));
+        map.put("country",resultSet.getString(5));
+        list.add(map);
+        }
+    }
+    model.addAttribute("list",list);
+
+    }
+
+
+
+    //
+
+    @GetMapping("sub92")
+    public void  m92(String country,Model model) throws  Exception{
+        String sql= """
+                select CustomerID, CustomerName,Address,City,Country 
+                from customers
+                where Country ='""";
+        sql+=country+"'";
+
+
+
+        Connection connection = dataSource.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        List<MyDto99> list= new ArrayList<>();
+
+        try (connection;statement;resultSet) {
+         while (resultSet.next()){
+             MyDto99 myDto99 = new MyDto99();
+             myDto99.setId(resultSet.getString(1));
+             myDto99.setName(resultSet.getString(2));
+             myDto99.setAddress(resultSet.getString(3));
+             myDto99.setCity(resultSet.getString(4));
+             myDto99.setCountry(resultSet.getString(5));
+             System.out.println("myDto99 = " + myDto99);
+             list.add(myDto99);
+         }
+         model.addAttribute("list",list);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

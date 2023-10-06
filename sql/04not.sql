@@ -20,3 +20,10 @@ from suppliers where  not  Country= 'japan';
 
 select *
 from products ;
+
+
+select CustomerID, CustomerName,Address,City,Country from customers;
+
+
+
+

@@ -1,9 +1,7 @@
 package com.example.spring20230902jh.controller;
 
-import com.example.spring20230902jh.domain.Ex;
 import com.example.spring20230902jh.domain.MyDto7;
 import com.example.spring20230902jh.domain.MyDto8;
-import com.example.spring20230902jh.domain.MyDto9;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,11 +64,6 @@ public void  m3(Model model){
         model.addAttribute("phone",map1);
         model.addAttribute("caps",map2);
         model.addAttribute("foods",map3);
-    }
-    @RequestMapping("sub6")
-    public void  m6(Model model , Ex ex){
-        model.addAttribute("attr",ex);
-        model.addAttribute("attr3",new MyDto7());
     }
 
     @RequestMapping("sub7")

@@ -2,6 +2,7 @@ package com.example.spring20230902jh.controller;
 
 
 import com.example.spring20230902jh.domain.MyDto15;
+import com.fasterxml.jackson.core.JsonToken;
 import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -171,6 +172,11 @@ public class Controller20 {
             String questionMarks = "";
             for (int i = 0; i < countryList.size(); i++) {
                 questionMarks += "?";
+
+                //  ? 출력 되나 확인
+                // System.out.println("questionMarks = " + questionMarks);
+
+
                 if (i < countryList.size()-1) {
                     questionMarks += ", ";
                 }
@@ -207,46 +213,78 @@ public class Controller20 {
         }
 
 
-    @GetMapping("sub10")
-    public void  m10(Model model) throws  Exception{
-        // 공급자의 국가 목록 조회
+
+/*
+        @GetMapping("sub10")
+        public void m10(){
+
+        }
+*/
+@GetMapping("sub10")
+public void method10(Model model) throws SQLException {
+    // 공급자의 국가 목록 조회
+    String sql = """
+                SELECT DISTINCT country 
+                FROM suppliers
+                """;
+
+    Connection connection = dataSource.getConnection();
+    Statement statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery(sql);
+
+    List<String> list = new ArrayList<>();
+    try (connection; statement; resultSet) {
+        while (resultSet.next()) {
+            list.add(resultSet.getString(1));
+        }
+    }
+
+    model.addAttribute("countryList", list);
+}
+
+    @GetMapping("sub11")
+    public void method11(@RequestParam("country") List<String> countryList) throws SQLException {
+        // /main20/sub11?country=UK&country=USA
+        // /main20/sub11?country=UK&country=Japan&country=USA
+
+        String questionMarks = "";
+
+        for (int i = 0; i < countryList.size(); i++) {
+            questionMarks += "?";
+
+            if (i < countryList.size() - 1) {
+                questionMarks += ", ";
+            }
+
+        }
+
         String sql = """
-                    select distinct country 
-                    from suppliers 
-                        
-                    """;
+                             SELECT *
+                             FROM suppliers
+                             WHERE country IN (
+                             """
+                + questionMarks + ")";
 
         Connection connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
 
+        for (int i = 0; i < countryList.size(); i++) {
+            statement.setString(i + 1, countryList.get(i));
+        }
+
         ResultSet resultSet = statement.executeQuery();
-        List<String> list = new ArrayList<>();
+
         try (connection; statement; resultSet) {
+            System.out.println("##########공급자 목록#########");
             while (resultSet.next()) {
+                String name = resultSet.getString(2);
+                String country = resultSet.getString(7);
 
-
-
-
-                list.add(resultSet.getString(1));
+                System.out.println(name + " : " + country);
             }
         }
 
-
-        model.addAttribute("countryList",list);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
